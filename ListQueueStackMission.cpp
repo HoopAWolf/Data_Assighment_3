@@ -413,4 +413,21 @@ bool Brackets(const string& input)
 // Query machine, hits
 void QueryMachine(vector<int>& data, vector<int>& queries, vector<unsigned int>& results)
 {
+
+	for (const auto &j : queries)
+	{
+		results.push_back(0);
+	}
+
+	for (const auto &i : data)
+	{
+		for (int it = 0; it < queries.size(); it++)
+		{
+			if (i == queries[it])
+			{
+				results[it] += 1;
+				break;
+			}
+		}
+	}
 }
