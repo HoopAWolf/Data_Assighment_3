@@ -44,16 +44,17 @@ int main()
     cout << ll.pop_back() << endl;
     ll.insert_at(2, 10);
     cout << ll.pop_at(0) << endl;
+	cout << ll.size() << endl;
     cout << endl;
 
     // part 2
-    cout << "Part 2" << endl;
-    Queue q;
-    q.enqueue(20);
-    q.enqueue(42);
-    cout << q.dequeue() << endl;
-    cout << q.size() << endl;
-    cout << endl;
+	cout << "Part 2" << endl;
+	Queue q;
+	q.enqueue(20);
+	q.enqueue(42);
+	cout << q.dequeue() << endl;
+	cout << q.size() << endl;
+	cout << endl;
 
     // part 3
     cout << "Part 3" << endl;
@@ -66,7 +67,7 @@ int main()
 
     // part 4
     cout << "Part 4" << endl;
-    const char* input = "<>";
+	const char* input = "<>";
     cout << Brackets(input) << endl;
     cout << endl;
 
