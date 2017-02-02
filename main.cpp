@@ -74,8 +74,8 @@ int main()
 
     // part 5
     cout << "Part 5" << endl;
-    int dataArray[] = {1, 4, 5, 6, 9, 1, 1, 4};
-    int queryArray[] = {1, 2, 3};
+    int dataArray[] = {-1, 4, -5, -6, 9, 1, 1, 4};
+    int queryArray[] = {-1, -2, -3};
 
     vector<int> data(dataArray, dataArray + sizeof(dataArray) / sizeof(dataArray[0]));
     vector<int> queries(queryArray, queryArray + sizeof(queryArray) / sizeof(queryArray[0]));
