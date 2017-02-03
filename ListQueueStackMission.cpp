@@ -165,31 +165,30 @@ int LinkedList::pop_at(int pos)
 
 	if (pos <= 0)
 		data_result = pop_front();
-	else if (pos >= (int)size())
+	else if (pos == (int)size() - 1)
 		data_result = pop_back();
-	else
+	else if (pos < (int)size() - 1)
 	{
 		Node* deletor;
 
-		for (Node* back = head_; back != nullptr; back = back->next, i++)
+		for (Node* curr = head_; curr != nullptr; curr = curr->next)
 		{
 			if (i == pos - 1)
 			{
-				deletor = back->next;
+				deletor = curr->next;
 
-				back->next = back->next->next;
+				curr->next = curr->next->next;
+
+				data_result = deletor->data;
 
 				delete deletor;
 				deletor = nullptr;
 
 				break;
 			}
-		}
 
-		data_result = deletor->data;
-		
-		delete deletor;
-		deletor = nullptr;
+			i++;
+		}
 	}
 
 	return data_result;
@@ -201,7 +200,7 @@ size_t LinkedList::size()
 
 	if (head_)
 	{
-		for (Node* back = head_; back != nullptr; back = back->next)
+		for (Node* curr = head_; curr != nullptr; curr = curr->next)
 		{
 			total_size++;
 		}
@@ -232,23 +231,17 @@ void Queue::enqueue(int data)
 
 	Node* newNode = new Node(data);
 
-	if (size() == 0)
+	if (front_ == nullptr)
 	{
 		front_ = newNode;
-		front_->next = back_;
+		front_->next = nullptr;
+		back_ = front_;
 	}
 	else
 	{
-		for (Node* last = front_; last != nullptr; last = last->next)
-		{
-			if (last->next == nullptr)
-			{
-				newNode->next = nullptr;
-				last->next = newNode;
-				back_ = newNode;
-				break;
-			}
-		}
+		newNode->next = nullptr;
+		back_->next = newNode;
+		back_ = newNode;
 	}
 
 }
@@ -258,7 +251,7 @@ int Queue::dequeue()
 	int data_result = 0;
 	Node* deletor;
 
-	if (size())
+	if (front_ != back_)
 	{
 		deletor = front_;
 		data_result = front_->data;
@@ -269,6 +262,17 @@ int Queue::dequeue()
 		deletor = nullptr;
 
 	}
+	else if (front_ == back_ && front_ != nullptr)
+	{
+		deletor = front_;
+		data_result = front_->data;
+
+		delete deletor;
+		deletor = nullptr;
+
+		front_ = nullptr;
+		back_ = nullptr;
+	}
 
 	return data_result;
 }
@@ -277,9 +281,9 @@ size_t Queue::size()
 {
 	size_t total_size = 0;
 	
-	if (front_)
+	if (front_ != nullptr)
 	{
-		for (Node* back = front_; back != nullptr; back = back->next)
+		for (Node* back = front_; back != back_->next; back = back->next)
 			++total_size;
 	}
 	return total_size;
@@ -295,7 +299,7 @@ Stack::Stack()
 
 Stack::~Stack()
 {
-	if (size())
+	while (top_ != nullptr)
 		pop();
 }
 
@@ -304,9 +308,8 @@ void Stack::push(int data)
 
 	Node* newNode = new Node(data);
 
-	if (size())
+	if (top_ != nullptr)
 	{
-		
 		newNode->next = top_;
 		top_ = newNode;
 	}
@@ -321,14 +324,15 @@ int Stack::pop()
 {
 	int data_result = 0;
 
-	if (size())
+	if (top_ != nullptr)
 	{
-		Node* deletor = nullptr;
+		Node* deletor;
 
 		deletor = top_;
+		data_result = top_->data;
+
 		top_ = top_->next;
 
-		data_result = deletor->data;
 		delete deletor;
 		deletor = nullptr;
 	}
@@ -340,7 +344,7 @@ size_t Stack::size()
 {
 	int size_of_stack = 0;
 
-	if (top_)
+	if (top_ != nullptr)
 	{
 		for (Node* last = top_; last != nullptr; last = last->next)
 			++size_of_stack;
@@ -415,15 +419,17 @@ void QueryMachine(vector<int>& data, vector<int>& queries, vector<unsigned int>&
 		results.push_back(0);
 	}
 
-	for (const auto &i : data)
+	for (vector<int>::iterator i = data.begin(); i != data.end(); i++)
 	{
-		for (int it = 0; it < (int)queries.size(); it++)
+		unsigned short pos = 0;
+
+		for (vector<int>::iterator j = queries.begin(); j != queries.end(); j++)
 		{
-			if (i == queries[it])
+			if (*i == *j)
 			{
-				results[it]++;
-				break;
+				results[pos]++;
 			}
+			++pos;
 		}
 	}
 }

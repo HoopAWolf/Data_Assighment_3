@@ -43,7 +43,7 @@ int main()
     cout << ll.pop_front() << endl;
     cout << ll.pop_back() << endl;
     ll.insert_at(2, 10);
-    cout << ll.pop_at(0) << endl;
+    cout << ll.pop_at(100) << endl;
 	cout << ll.size() << endl;
     cout << endl;
 
@@ -74,8 +74,8 @@ int main()
 
     // part 5
     cout << "Part 5" << endl;
-    int dataArray[] = {-1, 4, -5, -6, 9, 1, 1, 4};
-    int queryArray[] = {-1, -2, -3};
+    int dataArray[] = {1, 4, 5, 6, 9, 1, 1, 4, 6};
+    int queryArray[] = {1, 4, 6};
 
     vector<int> data(dataArray, dataArray + sizeof(dataArray) / sizeof(dataArray[0]));
     vector<int> queries(queryArray, queryArray + sizeof(queryArray) / sizeof(queryArray[0]));
