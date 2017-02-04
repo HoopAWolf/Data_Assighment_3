@@ -445,7 +445,7 @@ bool Brackets(const string& input)
 void QueryMachine(vector<int>& data, vector<int>& queries, vector<unsigned int>& results)
 {
 
-	std::map <int, int> list_of_numbers;  //CREATING A MAP LIST OF INT AND INT
+	map <int, int> list_of_numbers;  //CREATING A MAP LIST OF INT AND INT
 
 	for (vector<int>::iterator it = data.begin(); it != data.end(); it++)  //LOOPING THROUGH UNTIL THE END
 	{
