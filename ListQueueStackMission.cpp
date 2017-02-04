@@ -445,22 +445,23 @@ bool Brackets(const string& input)
 void QueryMachine(vector<int>& data, vector<int>& queries, vector<unsigned int>& results)
 {
 
-	for (vector<int>::iterator it = queries.begin(); it != queries.end(); it++)  //LOOPING THROUGH UNTIL THE END
-	{
-		results.push_back(0);  //PUSH BACK FOR EVERY QUERY
-	}
+	std::map <int, int> list_of_numbers;  //CREATING A MAP LIST OF INT AND INT
 
-	for (vector<int>::iterator i = data.begin(); i != data.end(); i++)  //LOOPING THROUGH UNTIL THE END
+	for (vector<int>::iterator it = data.begin(); it != data.end(); it++)  //LOOPING THROUGH UNTIL THE END
 	{
-		unsigned short pos = 0;  //SETTING POSITION OF THE VECTOR TO 0
-
-		for (vector<int>::iterator j = queries.begin(); j != queries.end(); j++)  //LOOPING THROUGH UNTIL THE END
+		if (list_of_numbers[*it] >= 0)  //CHECKING IF THERE IS AVAILABLE DATA IN THE MAP POSITION
 		{
-			if (*i == *j)  //CHECKING IF BOTH VALUES ARE SIMILAR
-			{
-				results[pos]++;  //INCREASE BY ONE IN RESULT IF FOUND SIMILAR NUMBERS IN DATA NAD THE QUERY
-			}
-			++pos;  //ADD ONE TO POS TO MOVE ON TO THE NEXT NUMBER IN RESULT
+			list_of_numbers[*it]++;  //ADDING ONE IF THERE IS AVAILBLE DATA
+		}
+		else
+		{
+			list_of_numbers[*it] = 0;  //SETTING DATA IF THERE IS NO DATA INSIDE
 		}
 	}
+
+	for (vector<int>::iterator it = queries.begin(); it != queries.end(); it++)    //LOOPING THROUGH UNTIL THE END
+	{
+		results.push_back(list_of_numbers[*it]);  //PUSHING RESULTS TO VECTOR
+	}
+
 }
